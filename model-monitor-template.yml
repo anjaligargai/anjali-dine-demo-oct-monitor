@@ -102,7 +102,7 @@ Parameters:
   ModelBiasConstraintsS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelBias Baseline's constraints.json file
-    MinLength: 3
+    MinLength: 0
   ModelExplainabilityConstraintsS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelExplainability Baseline's constraints.json file
