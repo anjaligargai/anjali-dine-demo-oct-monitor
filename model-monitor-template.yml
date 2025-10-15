@@ -98,7 +98,7 @@ Parameters:
   ModelQualityConstraintsS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelQuality Baseline's constraints.json file
-    MinLength: 3
+    MinLength: 0
   ModelBiasConstraintsS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelBias Baseline's constraints.json file
