@@ -106,7 +106,7 @@ Parameters:
   ModelExplainabilityConstraintsS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelExplainability Baseline's constraints.json file
-    MinLength: 3
+    MinLength: 0
   MonitoringScheduleName:
     Type: String
     Description: Unique name of the monitoring schedule job
