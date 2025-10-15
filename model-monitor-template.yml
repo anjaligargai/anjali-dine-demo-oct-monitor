@@ -147,11 +147,11 @@ Parameters:
   ModelBiasConfigS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelBias monitor's config file
-    MinLength: 3
+    MinLength: 0
   ModelExplainabilityConfigS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelExplainability monitor's config file
-    MinLength: 3
+    MinLength: 0
   ModelMonitorImageUri:
     Type: String
     Description: The ModelMonitor image uri
