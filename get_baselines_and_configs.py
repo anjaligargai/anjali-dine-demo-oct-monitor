@@ -113,14 +113,49 @@ def main():
     logger.info(baselines)
 
     # update Bias and Explainability baselines
-    updated_baselines = {
-        "Bias": process_bias_baselines(baselines["DriftCheckBaselines"]["Bias"], s3_client),
-        "Explainability": process_explainability_config_file(
-            baselines["DriftCheckBaselines"]["Explainability"], baselines["ModelName"], s3_client
-        ),
-        "ModelQuality": baselines["DriftCheckBaselines"]["ModelQuality"],
-        "ModelDataQuality": baselines["DriftCheckBaselines"]["ModelDataQuality"],
-    }
+
+    # Safely get the DriftCheckBaselines dictionary, or an empty one if it doesn't exist
+    drift_check_baselines = baselines.get("DriftCheckBaselines", {})
+    logger.info(f"Found DriftCheckBaselines: {drift_check_baselines.keys()}")
+    
+    # Initialize an empty dictionary for the baselines we find and process
+    updated_baselines = {}
+    
+    # Only process baselines if they actually exist in the Model Registry
+    if "Bias" in drift_check_baselines:
+        logger.info("Processing Bias baselines...")
+        updated_baselines["Bias"] = process_bias_baselines(
+            drift_check_baselines["Bias"], s3_client
+        )
+    else:
+        logger.warning("Bias baseline not found, skipping.")
+    
+    if "Explainability" in drift_check_baselines:
+        logger.info("Processing Explainability baselines...")
+        updated_baselines["Explainability"] = process_explainability_config_file(
+            drift_check_baselines["Explainability"], baselines["ModelName"], s3_client
+        )
+    else:
+        logger.warning("Explainability baseline not found, skipping.")
+    
+    if "ModelQuality" in drift_check_baselines:
+        logger.info("Processing ModelQuality baselines...")
+        updated_baselines["ModelQuality"] = drift_check_baselines["ModelQuality"]
+    else:
+        logger.warning("ModelQuality baseline not found, skipping.")
+    
+    # NOTE: The original code used "ModelDataQuality", but the standard is often "DataQuality".
+    # This code checks for both to be safe.
+    if "ModelDataQuality" in drift_check_baselines:
+        logger.info("Processing ModelDataQuality baselines...")
+        updated_baselines["ModelDataQuality"] = drift_check_baselines["ModelDataQuality"]
+    elif "DataQuality" in drift_check_baselines:
+        logger.info("Processing DataQuality baselines...")
+        updated_baselines["DataQuality"] = drift_check_baselines["DataQuality"]
+    else:
+        logger.warning("DataQuality/ModelDataQuality baseline not found, skipping.")
+    
+    # ----- END OF REPLACEMENT BLOCK -----
     logger.info("Updated Baselines...")
     logger.info(updated_baselines)
 
