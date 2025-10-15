@@ -94,7 +94,7 @@ Parameters:
   DataQualityStatisticsS3Uri:
     Type: String
     Description: Amazon S3 URI of the DataQuality Baseline's statistics.json file
-    MinLength: 3
+    MinLength: 0
   ModelQualityConstraintsS3Uri:
     Type: String
     Description: Amazon S3 URI of the ModelQuality Baseline's constraints.json file
