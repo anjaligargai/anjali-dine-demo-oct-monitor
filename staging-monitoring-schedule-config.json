@@ -1,7 +1,7 @@
 {
   "Parameters": {
     "StageName": "staging",
-    "EnableDataQualityMonitor": "yes",
+    "EnableDataQualityMonitor": "no",
     "EnableModelQualityMonitor": "yes",
     "EnableModelBiasMonitor": "no",
     "EnableModelExplainabilityMonitor": "no",
